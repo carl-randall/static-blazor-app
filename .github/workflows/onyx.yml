@@ -1,4 +1,4 @@
-name: POC Azure Static Web Apps With Func CI/CD
+name: Onyx POC Azure Static Web Apps With Func CI/CD
 
 on:
   workflow_dispatch:  # This enables the manual trigger
