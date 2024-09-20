@@ -1,4 +1,4 @@
-name: Onyx POC Azure Static Web Apps With Func CI/CD
+name: POC Azure Static Web Apps With Func CI/CD
 
 on:
   workflow_dispatch:  # This enables the manual trigger
@@ -15,26 +15,26 @@ jobs:
           submodules: true
           lfs: false
 
-      # Step 2: Set up Node.js for Azure Static Web Apps CLI (if needed)
+      # Step 2: Set up Node.js with the latest version for SWA CLI
       - uses: actions/setup-node@v4
         with:
-          node-version: '14.x'  # Or the version required by your app
-      
-      # Step 3: Restore dependencies (for .NET app)
+          node-version: 'latest'  # This will use the latest stable Node.js version
+
+      # Step 3: Install Azure Static Web Apps CLI (SWA CLI)
+      - name: Install SWA CLI
+        run: npm install -g @azure/static-web-apps-cli
+
+      # Step 4: Restore dependencies (for .NET app)
       - name: Restore dependencies
         run: dotnet restore
 
-      # Step 4: Publish the Blazor project
+      # Step 5: Publish the Blazor project
       - name: Publish the Blazor app
         run: dotnet publish --configuration Release --output ./build
 
-      # Step 5: Deploy using Oryx to ensure API deployment is handled properly
-      - name: Deploy with Oryx (App + Azure Functions)
+      # Step 6: Deploy using the Static Web Apps CLI with Oryx
+      - name: Deploy to Azure Static Web Apps
         env:
           AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
         run: |
-          npx @azure/static-web-apps-cli deploy \
-            --app-location ./build \
-            --api-location ./Api \
-            --env production
-
+          swa deploy --app-location ./build --api-location ./Api --env production
