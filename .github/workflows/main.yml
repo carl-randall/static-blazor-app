@@ -1,0 +1,49 @@
+name: X
+
+on:
+  workflow_dispatch:  # This enables the manual trigger
+
+jobs:
+  build_and_deploy_job:    
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+
+    steps:
+      # Step 1: Checkout the code
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+
+      # Step 2: Set up .NET SDK (if you're using .NET for your project)
+      #- name: Set up .NET
+      #  uses: actions/setup-dotnet@v3
+      #  with:
+      #    dotnet-version: '6.x'
+
+      # Step 3: Set up Node.js for Azure Static Web Apps CLI (if needed)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'  # or the version that your app requires
+      
+      #- name: Add Github feed
+      #  run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ESM-Solutions/index.json"
+
+      # Step 5: Restore dependencies (including those from GitHub Packages)
+      - name: Restore dependencies
+        run: dotnet restore
+
+     # Step 7: Publish the Blazor project
+      - name: Publish the Blazor app
+        run: dotnet publish --configuration Release --output bin/publish
+
+    # Step 8: Install Azure Static Web Apps CLI
+      - name: Install SWA CLI
+        run: npm install -g @azure/static-web-apps-cli
+
+      # Deploy to Azure Static Web Apps using environment variable for the token
+      - name: Deploy to Azure Static Web Apps
+        env:
+          SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_CLIFF_04EC80F03 }}
+        run: |
+          swa deploy ./bin/publish/wwwroot --api-location .bin/publish --env Production
