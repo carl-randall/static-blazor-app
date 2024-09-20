@@ -1,0 +1,40 @@
+name: POC Azure Static Web Apps With Func CI/CD
+
+on:
+  workflow_dispatch:  # This enables the manual trigger
+
+jobs:
+  build_and_deploy_job:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+
+    steps:
+      # Step 1: Checkout the code
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+
+      # Step 2: Set up Node.js for Azure Static Web Apps CLI (if needed)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '14.x'  # Or the version required by your app
+      
+      # Step 3: Restore dependencies (for .NET app)
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Step 4: Publish the Blazor project
+      - name: Publish the Blazor app
+        run: dotnet publish --configuration Release --output ./build
+
+      # Step 5: Deploy using Oryx to ensure API deployment is handled properly
+      - name: Deploy with Oryx (App + Azure Functions)
+        env:
+          AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+        run: |
+          npx @azure/static-web-apps-cli deploy \
+            --app-location ./build \
+            --api-location ./Api \
+            --env production
+
