@@ -46,4 +46,4 @@ jobs:
         env:
           SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_CLIFF_04EC80F03 }}
         run: |
-          swa deploy ./bin/publish/wwwroot --api-location ./bin/publish/Api --env Production
+          swa deploy ./bin/publish/wwwroot --api-location ./Api --env Production
