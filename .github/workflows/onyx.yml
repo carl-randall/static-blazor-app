@@ -20,19 +20,30 @@ jobs:
         with:
           node-version: 'latest'  # This will use the latest stable Node.js version
 
-      # Step 3: Install Azure Static Web Apps CLI (SWA CLI)
+      # Step 3: Set up .NET SDK (if you're using .NET for your project)
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'  # or '6.x' or '8.x' depending on your project
+
+      # Step 4: Install the wasm-tools workload
+      - name: Install wasm-tools workload
+        run: dotnet workload install wasm-tools
+
+        
+      # Step 5: Install Azure Static Web Apps CLI (SWA CLI)
       - name: Install SWA CLI
         run: npm install -g @azure/static-web-apps-cli
 
-      # Step 4: Restore dependencies (for .NET app)
+      # Step 6: Restore dependencies (for .NET app)
       - name: Restore dependencies
         run: dotnet restore
 
-      # Step 5: Publish the Blazor project
+      # Step 7: Publish the Blazor project
       - name: Publish the Blazor app
         run: dotnet publish --configuration Release --output ./build
 
-      # Step 6: Deploy using the Static Web Apps CLI with Oryx
+      # Step 8: Deploy using the Static Web Apps CLI with Oryx
       - name: Deploy to Azure Static Web Apps
         env:
           AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
