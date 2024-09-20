@@ -45,7 +45,7 @@ jobs:
 
         # Step 7: Publish the Blazor project
       - name: Build the Blazor app
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release --output ./build
 
       - name: Build And Deploy
         id: builddeploy
