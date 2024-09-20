@@ -35,7 +35,7 @@ jobs:
 
      # Step 7: Publish the Blazor project
       - name: Publish the Blazor app
-        run: dotnet publish --configuration Release --output ./build
+        run: dotnet publish --configuration Release --output bin/publish
 
     # Step 8: Install Azure Static Web Apps CLI
       - name: Install SWA CLI
@@ -46,4 +46,4 @@ jobs:
         env:
           SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_CLIFF_04EC80F03 }}
         run: |
-          swa deploy --output-location ./build --api-location ./Api --env production
+          swa deploy swa deploy ./bin/publish/wwwroot --api-location ./Api
