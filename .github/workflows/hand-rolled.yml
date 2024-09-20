@@ -41,7 +41,6 @@ jobs:
       - name: Install SWA CLI
         run: npm install -g @azure/static-web-apps-cli
 
-
     # Step 9: Deploy the app and API
       - name: Deploy to Azure Static Web Apps
         run: |
