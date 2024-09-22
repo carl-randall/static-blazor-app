@@ -1,4 +1,4 @@
-name: X
+name: SWA deploy
 
 on:
   workflow_dispatch:  # This enables the manual trigger
@@ -25,11 +25,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 'latest'  # or the version that your app requires
+
+       # Step 4: Install the wasm-tools workload
+      - name: Install wasm-tools workload
+        run: dotnet workload install wasm-tools
       
       - name: Add Github feed
         run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GIT_PACKAGES }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/carl-randall/index.json"
 
-      # Step 5: Restore dependencies (including those from GitHub Packages)
+      # Step 6: Restore dependencies (including those from GitHub Packages)
       - name: Restore dependencies
         run: dotnet restore
 
