@@ -26,8 +26,8 @@ jobs:
         with:
           node-version: 'latest'  # or the version that your app requires
       
-      #- name: Add Github feed
-      #  run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ESM-Solutions/index.json"
+      - name: Add Github feed
+        run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/carl-randall/index.json"
 
       # Step 5: Restore dependencies (including those from GitHub Packages)
       - name: Restore dependencies
