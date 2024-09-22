@@ -34,9 +34,8 @@ jobs:
           if dotnet nuget list source | grep -q github; then
             dotnet nuget remove source github
           fi
-      - name: Add Github feed
-        #run: dotnet nuget add source --username ${{ github.actor }} --password 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 --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
-        run: dotnet nuget add source --username ${{ github.actor }} --password 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 --store-password-in-clear-text --name github "https://nuget.pkg.github.com/carl-randall/index.json"
+      - name: Add Github feed        
+        run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GIT_PACKAGES }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/carl-randall/index.json"
       - name: List NuGet Sources
         run: dotnet nuget list source
   
