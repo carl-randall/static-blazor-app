@@ -3,6 +3,7 @@ using BlazorApp.Shared;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
+using WeatherInfo;
 
 namespace Api
 {
@@ -18,6 +19,7 @@ namespace Api
         [Function("WeatherForecast")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
+            var uK = new UnitedKingdom();
             var randomNumber = new Random();
             var temp = 0;
 
