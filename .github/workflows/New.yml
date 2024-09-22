@@ -1,4 +1,4 @@
-name: SWA deploy
+name: SWA NEW deploy
 
 on:
   workflow_dispatch:  # This enables the manual trigger
