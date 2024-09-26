@@ -38,19 +38,19 @@ namespace Api
 
         private string GetSummary(int temp)
         {
-            var summary = "Extremely Mild!";
+            var summary = "V2 Extremely Mild!";
 
             if (temp >= 32)
             {
-                summary = "Hot hot hot!";
+                summary = "v2 Hot hot hot!";
             }
             else if (temp <= 16 && temp > 0)
             {
-                summary = "Freezing!";
+                summary = "V2 Freezing!";
             }
             else if (temp <= 0)
             {
-                summary = "Somewhat chilly!";
+                summary = "V2 Somewhat chilly!";
             }
 
             return summary;
