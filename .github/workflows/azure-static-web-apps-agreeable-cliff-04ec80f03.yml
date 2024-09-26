@@ -13,6 +13,13 @@ jobs:
         with:
           submodules: true
           lfs: false
+      
+      # Replace placeholders in solution-level nuget.config with GitHub credentials
+      - name: Update nuget.config with GitHub credentials
+        run: |
+          sed -i 's/%GITHUB_ACTOR%/${{ github.actor }}/g' nuget.config
+          sed -i 's/%GITHUB_TOKEN%/${{ secrets.GIT_PACKAGES }}/g' nuget.config
+      
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
