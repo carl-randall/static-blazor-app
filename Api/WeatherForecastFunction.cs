@@ -44,15 +44,15 @@ namespace Api
 
             if (temp >= 32)
             {
-                summary = "v2 Hot hot hot!";
+                summary = "v2 Hot hot hot!" + uK2.Label;
             }
             else if (temp <= 16 && temp > 0)
             {
-                summary = "V2 Freezing!";
+                summary = "V2 Freezing!" + uK2.Label;
             }
             else if (temp <= 0)
             {
-                summary = "V2 Somewhat chilly!";
+                summary = "V2 Somewhat chilly!" + uK2.Label;
             }
 
             return summary;
