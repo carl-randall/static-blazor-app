@@ -40,7 +40,7 @@ namespace Api
         {
             var uK2 = new UnitedKingdom() { Label = "ggg" };          
 
-            var summary = "V2 Extremely Mild!" + uk2.Label;
+            var summary = "V2 Extremely Mild!" + uK2.Label;
 
             if (temp >= 32)
             {
