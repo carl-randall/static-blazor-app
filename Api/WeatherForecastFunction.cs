@@ -20,6 +20,7 @@ namespace Api
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
             var uK = new UnitedKingdom();
+            uk.Label = "test";
             var randomNumber = new Random();
             var temp = 0;
 
@@ -38,7 +39,10 @@ namespace Api
 
         private string GetSummary(int temp)
         {
-            var summary = "V2 Extremely Mild!";
+            var uK2 = new UnitedKingdom();
+            uk2.Label = "test";
+
+            var summary = "V2 Extremely Mild!" + uk2.Label;
 
             if (temp >= 32)
             {
