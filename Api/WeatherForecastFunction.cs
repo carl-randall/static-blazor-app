@@ -19,7 +19,7 @@ namespace Api
         [Function("WeatherForecast")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
-            var uK = new UnitedKingdom(Label="test");            
+            var uK = new UnitedKingdom(){ Label = "ggg" };
             var randomNumber = new Random();
             var temp = 0;
 
@@ -38,7 +38,7 @@ namespace Api
 
         private string GetSummary(int temp)
         {
-            var uK2 = new UnitedKingdom(Label="test");          
+            var uK2 = new UnitedKingdom() { Label = "ggg" };          
 
             var summary = "V2 Extremely Mild!" + uk2.Label;
 
